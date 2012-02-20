@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout android:id="@+id/desires_headline_textview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="10dip"
+        android:text="@string/desires"
+        style="@style/text_headline"
+        >
+        
+        <Button android:id="@+id/desires_add_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_marginRight="5dip"
+            android:text="Add desire"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_background"
+            />
+        <Button android:id="@+id/desires_delete_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_marginLeft="5dip"
+            android:text="Remove desire"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_background"
+            />
+        
+	</LinearLayout>
+    
+    <ListView android:id="@+id/desires_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_below="@id/desires_headline_textview"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:drawable/list_selector_background"
+        android:background="@drawable/listview_background"
+        />
+    
+
+</RelativeLayout>

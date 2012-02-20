@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="text_headline">
+        
+        <item name="android:textSize">28dip</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#FF008800</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+    
+    <style name="simple_text">
+        <item name="android:textSize">20dip</item>
+        <item name="android:textColor">#FF00FFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+</resources>

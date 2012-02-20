@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Desires -->
+    <string name="desires">Desires</string>
+    
+    <!-- Create Desire -->
+    <string name="add_desire">Add desire</string>
+
+</resources>
