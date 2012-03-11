@@ -31,7 +31,7 @@ public class GeoComradeApp extends Application{
 			@Override
 			public void onLocationChanged(GeoPoint point) {
 				// обработка точки
-				Toast.makeText(	getApplicationContext(), "Твоя остановка!"	,	Toast.LENGTH_SHORT).show();
+				//Toast.makeText(	getApplicationContext(), "Твоя остановка!"	,	Toast.LENGTH_SHORT).show();
 				desireManager.exciteReactions(point);						
 			}
         });
