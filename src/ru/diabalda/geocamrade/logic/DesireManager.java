@@ -53,7 +53,9 @@ public class DesireManager {
 
 	public void exciteReactions(GeoPoint currentPoint) {
 		ArrayList<Desire> activeDesires = new ArrayList<Desire>();
-
+        
+		
+		// Идем по списку Desires и те из них, что должны быть активированы помещаем в новый списке
 		for (Desire oldDesire : desireList) {
 			if (oldDesire.isActual(currentPoint)) {
 				activeDesires.add(oldDesire);
@@ -83,12 +85,16 @@ public class DesireManager {
                 		break;
                 	case 1:
                 		sendEMAIL();
+                		break;
                 	case 2:
                 		createNotification();
+                		break;
                 	case 3:
                 		callAlarm();
+                		break;
                 	case 6:
                 		createToast();
+                		break;
                 }	
 			}
 

@@ -4,7 +4,8 @@ import com.google.android.maps.GeoPoint;
 
 public class Region {
 	private GeoPoint geoPoint;
-	private int Radius;
+	/**@doc In km**/
+	private double Radius;
 	
     
 	public Region(GeoPoint geoPoint, int radius) {
@@ -26,13 +27,13 @@ public class Region {
 	/**
 	 * @return the radius
 	 */
-	public int getRadius() {
+	public double getRadius() {
 		return Radius;
 	}
 	/**
 	 * @param radius the radius to set
 	 */
-	public void setRadius(int radius) {
+	public void setRadius(double radius) {
 		Radius = radius;
 	}
 	

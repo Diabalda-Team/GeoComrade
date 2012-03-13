@@ -51,7 +51,7 @@ public class Desire {
 	public boolean isActual(GeoPoint currentPoint){
     	boolean isActual = false;
     	
-    	if (!isActive){
+    	if (isActive){
     		
     		isActual = checkActuality(currentPoint);
     	}	
@@ -62,9 +62,41 @@ public class Desire {
     
     // Здесь сложная геометрическая проверка
 	private boolean checkActuality(GeoPoint currentPoint) {
-	
-	return true;	
 		
+	double radius = region.getRadius();
+	GeoPoint circleCenter = region.getGeoPoint();
+	
+	int centerLat = circleCenter.getLatitudeE6();
+	int centreLon = circleCenter.getLongitudeE6();
+	
+	int currentLat = currentPoint.getLatitudeE6();
+	int currentLon = currentPoint.getLongitudeE6();
+	
+	
+	
+	double distance =   (Math.sqrt(Math.pow(Math.abs(coefficientForCurrentLatitude() * centerLat 
+			- coefficientForCurrentLatitude()*currentLat),2)
+					+ Math.pow(Math.abs(coefficientForCurrentLongitude(centerLat) * centreLon 
+			- coefficientForCurrentLongitude(currentLat)*currentLon),2)))/1000000;
+	
+	if (radius < distance){
+	    return false;
+	}
+	else{
+		return true;
+	}
+		
+	}
+
+	private double coefficientForCurrentLongitude(int lat) {
+		// TODO Auto-generated method stub
+		return Math.cos((lat/1000000) * Math.PI /180) * (40000/360);
+	}
+
+	//Для каждой широты свои коэффициенты перевода милисекунд широты  в километры и вообще свой подход в заависимости от расстояния
+	private double coefficientForCurrentLatitude() {
+		// TODO Auto-generated method stub
+		return 40000/360/1000000;
 	}
 
 	/**
