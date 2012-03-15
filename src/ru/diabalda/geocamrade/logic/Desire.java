@@ -15,6 +15,9 @@ public class Desire {
 	private DesireGroup desireGroup;
 	private boolean isActive;
 	
+	// Может boolean сделать?? все равно никто не потерпит 3 всплывающих сообщения или 4 звонка будильника
+	private int numberOfCalls;
+	
 	public Desire(int idDesire, Region region, String info,
 			DesireType desireType, Reaction reaction, DesireGroup desireGroup) {
 		super();
@@ -24,6 +27,7 @@ public class Desire {
 		this.desireType = desireType;
 		this.reaction = reaction;
 		this.desireGroup = desireGroup;
+	
 	}
 
     public Desire(String name, boolean isActive) {
@@ -54,32 +58,20 @@ public class Desire {
     	if (isActive){
     		
     		isActual = checkActuality(currentPoint);
+    		numberOfCalls ++;
     	}	
     	return isActual; 
     	
     }
     
     
-    // Здесь сложная геометрическая проверка
+    // Здесь сложная геометрическая проверка (Будущий геометрический класс)
 	private boolean checkActuality(GeoPoint currentPoint) {
 		
-	double radius = region.getRadius();
-	GeoPoint circleCenter = region.getGeoPoint();
 	
-	int centerLat = circleCenter.getLatitudeE6();
-	int centreLon = circleCenter.getLongitudeE6();
+	double distance = distanceFromCurrentPointToDesireCenter(currentPoint);
 	
-	int currentLat = currentPoint.getLatitudeE6();
-	int currentLon = currentPoint.getLongitudeE6();
-	
-	
-	
-	double distance =   (Math.sqrt(Math.pow(Math.abs(coefficientForCurrentLatitude() * centerLat 
-			- coefficientForCurrentLatitude()*currentLat),2)
-					+ Math.pow(Math.abs(coefficientForCurrentLongitude(centerLat) * centreLon 
-			- coefficientForCurrentLongitude(currentLat)*currentLon),2)))/1000000;
-	
-	if (radius < distance){
+	if (region.getRadius() < distance){
 	    return false;
 	}
 	else{
@@ -88,7 +80,36 @@ public class Desire {
 		
 	}
 
-	private double coefficientForCurrentLongitude(int lat) {
+	public double distanceFromCurrentPointToDesireCenter(GeoPoint currentPoint) {
+		
+		
+		GeoPoint circleCenter = region.getGeoPoint();
+		
+		int centerLat = circleCenter.getLatitudeE6();
+		int centreLon = circleCenter.getLongitudeE6();
+		
+		int currentLat = currentPoint.getLatitudeE6();
+		int currentLon = currentPoint.getLongitudeE6();
+		
+		
+		
+		double distance =   (Math.sqrt(Math.pow(Math.abs(coefficientForCurrentLatitude() * centerLat 
+				- coefficientForCurrentLatitude()*currentLat),2)
+						+ Math.pow(Math.abs(coefficientForCurrentLongitude(centerLat) * centreLon 
+				- coefficientForCurrentLongitude(currentLat)*currentLon),2)))/1000000;
+		return distance;
+	}
+
+	public double distanceFromCurrentPointToDesireBorder(GeoPoint currentPoint){
+		
+		
+		// Для областей типа КРУГ
+		return distanceFromCurrentPointToDesireCenter(currentPoint) - region.getRadius();
+		// Для иных полигонов!???
+		
+	}
+	
+    private double coefficientForCurrentLongitude(int lat) {
 		// TODO Auto-generated method stub
 		return Math.cos((lat/1000000) * Math.PI /180) * (40000/360);
 	}
@@ -98,7 +119,10 @@ public class Desire {
 		// TODO Auto-generated method stub
 		return 40000/360/1000000;
 	}
-
+    
+	
+	
+	
 	/**
 	 * @return the idDesire
 	 */
@@ -220,6 +244,14 @@ public class Desire {
 	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public int getNumberOfCalls() {
+		return numberOfCalls;
+	}
+
+	public void setNumberOfCalls(int numberOfCalls) {
+		this.numberOfCalls = numberOfCalls;
 	}
 	
 	

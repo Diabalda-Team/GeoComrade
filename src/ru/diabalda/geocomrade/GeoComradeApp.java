@@ -21,9 +21,10 @@ public class GeoComradeApp extends Application{
 		super.onCreate();
 		
 		ArrayList<Desire> desires = new ArrayList<Desire>();
-		desires.add(new Desire("Ўкола", new Region(new GeoPoint(55000000, 55000000), 100),
+		desires.add(new Desire("Ўкола", new Region(new GeoPoint(55000000, 55000000), 10),
 				true));
-
+		desires.add(new Desire("”нивер", new Region(new GeoPoint(55010000, 55010000), 10),
+				true));
 		desireManager = new DesireManager(desires, getApplicationContext());
 		
 		navManager = new NavManager(getApplicationContext());

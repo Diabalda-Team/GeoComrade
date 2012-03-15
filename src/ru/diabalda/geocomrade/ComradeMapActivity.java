@@ -121,7 +121,7 @@ public class ComradeMapActivity extends MapActivity {
 //
 //		experimentalPointFormarker = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
 //		mapController.animateTo(experimentalPointFormarker);
-//		mapController.setZoom(17);
+		mapController.setZoom(17);
 
 		// ---Add a location marker---
 		MapOverlay mapOverlay = new MapOverlay();

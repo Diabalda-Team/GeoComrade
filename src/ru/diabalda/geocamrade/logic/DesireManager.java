@@ -12,7 +12,7 @@ public class DesireManager {
 
 	private ArrayList<Desire> desireList;
 	private Context ctx;   
-	
+	private double minDistance;
 	
 	public DesireManager(ArrayList<Desire> desireList, Context ctx) {
 		super();
@@ -35,6 +35,14 @@ public class DesireManager {
 		this.desireList = desireList;
 	}
 
+	public double getMinDistance() {
+		return minDistance;
+	}
+
+	public void setMinDistance(double minDistance) {
+		this.minDistance = minDistance;
+	}
+
 	public void addDesire(Desire desire) {
 		desireList.add(desire);
 	}
@@ -42,7 +50,20 @@ public class DesireManager {
 	public void deleteDesire(Desire desire) {
 		desireList.remove(desire);
 	}
-
+    
+	public double minDistanceFromNearestDesireBorder(GeoPoint currentPoint){
+		double minDistance = 1000000; //Заменить на вызов функции самого большого числа типа double
+		for (Desire desire : desireList) {
+			double newMinDistance = desire.distanceFromCurrentPointToDesireBorder(currentPoint);
+			if (minDistance > newMinDistance){
+				minDistance = newMinDistance;
+			}
+		}
+			
+		return minDistance;
+	}
+	
+	
 	public void save(String filname) {
 
 	}
@@ -52,15 +73,20 @@ public class DesireManager {
 	}
 
 	public void exciteReactions(GeoPoint currentPoint) {
+		
+		minDistance = minDistanceFromNearestDesireBorder(currentPoint); 
+		
 		ArrayList<Desire> activeDesires = new ArrayList<Desire>();
         
 		
 		// Идем по списку Desires и те из них, что должны быть активированы помещаем в новый списке
 		for (Desire oldDesire : desireList) {
 			if (oldDesire.isActual(currentPoint)) {
+				
+				
 				activeDesires.add(oldDesire);
 			}
-
+           
 		}
 
 		// Обработка пересекающихся Desires
@@ -73,7 +99,7 @@ public class DesireManager {
 
 	private void exciteOneReaction(Desire desire) {
 
-		if (desire.getReaction().getListReactionTypes() != null) {
+		if ((desire.getReaction().getListReactionTypes() != null) && desire.getNumberOfCalls() < 2 )  {
 
 			ArrayList<ReactionType> listReactionTypes = desire.getReaction()
 					.getListReactionTypes();
@@ -111,7 +137,7 @@ public class DesireManager {
 	}
 
 	private void callAlarm() {
-		// TODO Auto-generated method stub
+		//Нужно всплывающее окно с отменой будильника, в принципе можно сбросить в ноль число вызовов
 		
 	}
 
